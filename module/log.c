@@ -21,5 +21,5 @@ inline void log_vma(struct task_struct *task, const char *func)
         }
     }
 
-    printk(KERN_INFO "lkh: %d: %s %lu %lu %lu\n", task->pid, func, heap_size, stack_size, anon_size);
+    printk(KERN_INFO "lkmah: %d: %s %lu %lu %lu\n", task->pid, func, heap_size, stack_size, anon_size);
 }

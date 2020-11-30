@@ -8,7 +8,7 @@ lkmah-objs += log.o
 ADDR = $(word 1, $(shell cat /proc/kallsyms | grep " sys_call_table"))
 
 all default:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
 
 install: default
 	insmod ./lkmah.ko syscall_table_addr="$(ADDR)"
@@ -17,4 +17,4 @@ uninstall:
 	rmmod lkmah
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) clean
