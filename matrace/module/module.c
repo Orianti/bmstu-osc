@@ -4,7 +4,7 @@
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Mikael Novikov");
-MODULE_DESCRIPTION("Linux Kernel Memory Allocation Hook");
+MODULE_DESCRIPTION("Memory allocation trace module");
 
 static char *syscall_table_addr = NULL;
 module_param(syscall_table_addr, charp, 0);
@@ -43,25 +43,25 @@ static int __init md_init(void)
     uintptr_t addr;
 
     if (syscall_table_addr == NULL || syscall_table_addr[0] == '\0') {
-        printk(KERN_EMERG "lkmah: failed to get syscall table\n");
+        printk(KERN_EMERG "matrace: failed to get syscall table\n");
         return 1;
     }
 
     addr = addr_to_pointer(syscall_table_addr);
     if (addr == 0) {
-        printk(KERN_EMERG "lkmah: invalid x64 syscall address\n");
+        printk(KERN_EMERG "matrace: invalid x64 syscall address\n");
         return 1;
     }
 
     hook = sys_hook_init(addr);
     if (hook == NULL) {
-        printk(KERN_EMERG "lkmah: failed to initialize sys_hook\n");
+        printk(KERN_EMERG "matrace: failed to initialize sys_hook\n");
         return 1;
     }
 
     add_hooks();
 
-    printk(KERN_INFO "lkmah: module loaded\n");
+    printk(KERN_INFO "matrace: module loaded\n");
 
     return 0;
 }
@@ -70,7 +70,7 @@ static void __exit md_exit(void)
 {
     sys_hook_free(hook);
 
-    printk(KERN_INFO "lkmah: module unloaded\n");
+    printk(KERN_INFO "matrace: module unloaded\n");
 }
 
 module_init(md_init);

@@ -10,7 +10,7 @@ if [ "$UID" -ne 0 ]; then
 	exit 1
 fi
 
-MODULE=lkmah
+MODULE=matrace
 PID=$1
 FILENAME=matracing$1.txt
 

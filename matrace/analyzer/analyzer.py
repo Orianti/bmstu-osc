@@ -30,7 +30,7 @@ class Analyzer(object):
 
         heap = [call['heap'] for call in self.__trace]
         stack = [call['stack'] for call in self.__trace]
-        anon = [call['anon'] / 1024 for call in self.__trace]
+        anon = [call['anon'] for call in self.__trace]
 
         return time, heap, stack, anon
 
