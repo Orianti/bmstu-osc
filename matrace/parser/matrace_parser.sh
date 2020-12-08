@@ -12,7 +12,7 @@ fi
 
 MODULE=matrace
 PID=$1
-FILENAME=matracing$1.txt
+FILENAME=matrace$PID.txt
 
 dmesg | grep "$MODULE: $PID:" > $FILENAME
 
