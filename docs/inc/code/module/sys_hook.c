@@ -1,6 +1,6 @@
 #include "sys_hook.h"
 
-/* Функция, возваращающая регистр CR0 */
+/* Функция, возвращающая регистр CR0 */
 static uint64_t get_cr0(void)
 {
     uint64_t ret;
@@ -40,7 +40,7 @@ struct sys_hook *sys_hook_init(uintptr_t addr)
     return hook;
 }
 
-/* Функция, освобождающую ресурсы */
+/* Функция, освобождающая ресурсы */
 void sys_hook_free(struct sys_hook *hook)
 {
     struct sys_hook_ent *cur, *next;
@@ -97,7 +97,7 @@ uintptr_t sys_hook_get_original(struct sys_hook *hook, unsigned int syscall)
 {
     struct sys_hook_ent *cur = hook->head;
 
-    for (; cur != NULL; cur = cur->next) { /* Цикл со списку функций-перехватчиков */
+    for (; cur != NULL; cur = cur->next) { /* Цикл по списку функций-перехватчиков */
         if (cur->syscall == syscall)
             return cur->original;
     }
