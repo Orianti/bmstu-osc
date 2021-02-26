@@ -34,7 +34,6 @@ static inline void add_hooks(void)
 {
     sys_hook_add(hook, __NR_brk, (void *)brk_hook);
     sys_hook_add(hook, __NR_mmap, (void *)mmap_hook);
-    sys_hook_add(hook, __NR_mremap, (void *)mremap_hook);
     sys_hook_add(hook, __NR_munmap, (void *)munmap_hook);
 }
 

@@ -24,7 +24,7 @@ class Analyzer(object):
         trace = []
 
         try:
-            for line in open(filename):
+            for line in open(filename, 'r'):
                 lst = line.split(' ')
                 trace.append(
                     {'time': float(lst[0][1:-1]),
@@ -51,7 +51,7 @@ class Analyzer(object):
         return len(self.__trace)
 
     def get_call_frequencies(self) -> Dict[str, int]:
-        frequencies = {'brk': 0, 'mmap': 0, 'munmap': 0, 'mremap': 0}
+        frequencies = {'brk': 0, 'mmap': 0, 'munmap': 0}
 
         for call in self.__trace:
             frequencies[call['syscall']] += 1
@@ -63,9 +63,6 @@ class Analyzer(object):
 
     def get_mean_usage(self) -> Dict[str, ndarray]:
         return {'heap': mean(self.__heap), 'stack': mean(self.__stack), 'anon': mean(self.__anon)}
-
-    def get_median_usage(self) -> Dict[str, ndarray]:
-        return {'heap': median(self.__heap), 'stack': median(self.__stack), 'anon': median(self.__anon)}
 
     def __process_data(self) -> None:
         start_time = self.__trace[0]['time']

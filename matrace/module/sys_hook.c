@@ -26,7 +26,7 @@ struct sys_hook *sys_hook_init(uintptr_t addr)
     struct sys_hook *hook = kmalloc(sizeof(struct sys_hook), GFP_KERNEL);
 
     if (hook == NULL) {
-        printk(KERN_EMERG "lkmah: not enough memory\n");
+        printk(KERN_EMERG "matrace: not enough memory\n");
         return NULL;
     }
 
@@ -64,7 +64,7 @@ bool sys_hook_add(struct sys_hook *hook, unsigned int syscall, void *hook_func)
     struct sys_hook_ent *entry = kmalloc(sizeof(struct sys_hook_ent), GFP_KERNEL);
 
     if (entry == NULL) {
-        printk(KERN_EMERG "lkmah: not enough memory\n");
+        printk(KERN_EMERG "matrace: not enough memory\n");
         return false;
     }
 
