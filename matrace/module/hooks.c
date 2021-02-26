@@ -32,14 +32,3 @@ asmlinkage long munmap_hook(unsigned long addr, size_t len)
 
     return ret;
 }
-
-asmlinkage long mremap_hook(unsigned long addr, unsigned long old_len, unsigned long new_len,
-                            unsigned long flags, unsigned long new_addr)
-{
-    sys_mremap_t sys_mremap = (sys_mremap_t)sys_hook_get_original(hook, __NR_mremap);
-    long ret = sys_mremap(addr, old_len, new_len, flags, new_addr);
-
-    log_vma(current, "mremap");
-
-    return ret;
-}

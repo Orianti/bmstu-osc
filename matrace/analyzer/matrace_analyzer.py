@@ -23,7 +23,6 @@ def print_stat(analyzer: Analyzer) -> None:
     print(f'brk calls:    {frequencies["brk"]}')
     print(f'mmap calls:   {frequencies["mmap"]}')
     print(f'munmap calls: {frequencies["munmap"]}')
-    print(f'mremap calls: {frequencies["mremap"]}')
     print(f'Total calls:  {analyzer.get_calls_count()}')
 
     max_usage = analyzer.get_max_usage()
@@ -33,10 +32,6 @@ def print_stat(analyzer: Analyzer) -> None:
     mean_usage = analyzer.get_mean_usage()
     print(f'Mean usage:   '
           f'heap: {mean_usage["heap"]:.2f}K, stack: {mean_usage["stack"]:.2f}K, anon: {mean_usage["anon"]:.2f}K')
-
-    median_usage = analyzer.get_mean_usage()
-    print(f'Median usage: '
-          f'heap: {median_usage["heap"]:.2f}K, stack: {median_usage["stack"]:.2f}K, anon: {median_usage["anon"]:.2f}K')
 
 
 def create_plots(data: List[Tuple[Tuple[List[float], List[int], List[int], List[int]], str]]) -> None:
@@ -68,19 +63,18 @@ def main(filenames: List[str]) -> int:
     data = []
 
     for filename in filenames:
-
         try:
             analyzer = Analyzer(filename)
         except UnableOpenTraceFileError:
-            print(f'File {filename} does not exist or cannot be accessed.')
+            print(f'  File {filename} does not exist or cannot be accessed.')
             continue
         except TraceFileWrongFormatError:
-            print(f'File {filename} the file is not in the correct format.')
+            print(f'  File {filename} the file is not in the correct format.')
             continue
 
         data.append((analyzer.get_memory_usage_plot_data(), filename))
 
-        print(f'-- {filename} -------------------------------------------')
+        print(f'  Trace file {filename}:')
         print_stat(analyzer)
 
     if len(data) == 0:
